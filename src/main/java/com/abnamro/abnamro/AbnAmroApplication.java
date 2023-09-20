@@ -8,9 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class AbnAmroApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(AbnAmroApplication.class, args);
+    public static void main(String[] args) {
 
-		log.info("Service started...");
-	}
+        SpringApplication.run(AbnAmroApplication.class, args);
+
+        log.info("Service started...");
+    }
 }
