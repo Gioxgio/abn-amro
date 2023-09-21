@@ -1,3 +1,15 @@
+## Assumptions
+The following assumptions were made during the development of this project
+
+## Shortcuts
+The following shortcuts were taken during the development of this project:
+- The database url has been overwritten with a java option in the docker-compose file<br>
+  **Why do I think this is wrong?** The url in the configuration is silently replaced<br>
+  **What I think should be the right solution?** There should be two different configurations:
+  - One loaded when the application run locally
+  - One loaded when the application run within a container<br>
+  The loading of the configuration should be based on two different spring profiles
+
 ## Pre requisites
 
 In order to run the application the following software has to be installed:
