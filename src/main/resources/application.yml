@@ -1,5 +1,5 @@
 spring:
   datasource:
-    username: user
+    username: abn-amro
     password: pass
-    url: 'jdbc:postgresql://localhost:5432/database'
+    url: 'jdbc:postgresql://localhost:5432/abnamro'
