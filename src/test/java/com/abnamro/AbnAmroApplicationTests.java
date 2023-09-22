@@ -1,4 +1,4 @@
-package com.abnamro.abnamro;
+package com.abnamro;
 
 import org.springframework.boot.test.context.SpringBootTest;
 

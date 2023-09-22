@@ -1,4 +1,4 @@
-package com.abnamro.abnamro;
+package com.abnamro;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
