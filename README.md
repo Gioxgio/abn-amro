@@ -29,6 +29,10 @@ In order to run the application the following software has to be installed:
 To start the project, open the project folder in the terminal and run the following command<br>
 `sh start_project.sh`
 
+## Swagger
+
+The swagger documentation can be read at http://127.0.0.1:8080/swagger-ui/index.html
+
 ## Dependencies
 
 | Dependency      | Purpose                                   | Documentation                              |
