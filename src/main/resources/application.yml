@@ -3,3 +3,6 @@ spring:
     username: abn-amro
     password: pass
     url: 'jdbc:postgresql://localhost:5432/abnamro'
+
+business-config:
+  allowed-countries: [ BE, DE, NL ]
