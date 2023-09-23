@@ -1,7 +1,7 @@
 package com.abnamro.api.controller;
 
 import com.abnamro.utils.UnitTestBase;
-import com.abnamro.utils.validator.CommonValidator;
+import com.abnamro.utils.validator.CustomerRegisterRequestValidator;
 import com.abnamro.utils.validator.ValidationException;
 import lombok.val;
 import org.junit.jupiter.api.Test;
@@ -19,12 +19,12 @@ class CustomerControllerTest extends UnitTestBase {
     @InjectMocks
     private CustomerController unitToTest;
     @Mock
-    private CommonValidator commonValidator;
+    private CustomerRegisterRequestValidator customerRegisterRequestValidator;
 
     @Test
     void register_invalid() {
 
-        doThrow(new ValidationException("")).when(commonValidator).validate(any());
+        doThrow(new ValidationException("")).when(customerRegisterRequestValidator).validate(any());
 
         assertThrows(ValidationException.class, () -> unitToTest.register(null));
     }

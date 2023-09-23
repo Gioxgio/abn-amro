@@ -33,6 +33,11 @@ public class CommonValidator {
                        violation.getMessage());
         }
 
-        throw new ValidationException(messageHelper.getMessage("validation.exception", errors));
+        throwValidationException("validation.exception", errors);
+    }
+
+    protected void throwValidationException(final String messageCode, final Object... args) {
+
+        throw new ValidationException(messageHelper.getMessage(messageCode, args));
     }
 }
