@@ -1,6 +1,8 @@
 ## Assumptions
 
-The following assumptions were made during the development of this project
+The following assumptions were made during the development of this project:
+
+- The generate password length is 7 chars and is letter only
 
 ## Shortcuts
 
@@ -16,6 +18,11 @@ The following shortcuts were taken during the development of this project:
   **Why do I think this is wrong?** The data stored in the database are legally required to open a bank account in most
   of the European countries<br>
   **What I think should be the right solution?** They should be `NOT NULL`. `id_document` should also be `UNIQUE`
+- Legal age is hardcoded<br>
+  **Why do I think this is wrong?** Even though is common in Europe that people under 18 years old are underage, that
+  limit shouldn't be in the code<br>
+  **What I think should be the right solution?** The age should be in the configuration file (to avoid to have to
+  specify the same number for every country, the default value could be 18)
 
 ## Pre requisites
 
