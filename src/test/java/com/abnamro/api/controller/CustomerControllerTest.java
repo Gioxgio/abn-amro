@@ -1,10 +1,13 @@
 package com.abnamro.api.controller;
 
+import com.abnamro.api.request.CustomerLogonRequest;
+import com.abnamro.data.entity.Customer;
 import com.abnamro.data.repository.AccountRepository;
 import com.abnamro.data.repository.CustomerRepository;
 import com.abnamro.mapper.AccountMapper;
 import com.abnamro.mapper.CustomerMapper;
 import com.abnamro.utils.UnitTestBase;
+import com.abnamro.utils.validator.CommonValidator;
 import com.abnamro.utils.validator.CustomerRegisterRequestValidator;
 import com.abnamro.utils.validator.ValidationException;
 import lombok.val;
@@ -31,6 +34,8 @@ class CustomerControllerTest extends UnitTestBase {
     private AccountMapper accountMapper;
     @Mock
     private AccountRepository accountRepository;
+    @Mock
+    private CommonValidator commonValidator;
     @Mock
     private CustomerMapper customerMapper;
     @Mock
@@ -60,6 +65,7 @@ class CustomerControllerTest extends UnitTestBase {
         val response = unitToTest.register(null);
 
         when(customerMapper.fromRegistrateRequest(any())).thenReturn(null);
+        when(customerRepository.saveAndFlush(any())).thenReturn(new Customer());
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
@@ -74,5 +80,61 @@ class CustomerControllerTest extends UnitTestBase {
         verifyNoMoreInteractions(customerRepository);
         verifyNoMoreInteractions(accountMapper);
         verifyNoMoreInteractions(accountRepository);
+    }
+
+
+    @Test
+    void logon_invalidRequest() {
+
+        doThrow(new ValidationException("")).when(commonValidator).validate(any());
+
+        assertThrows(ValidationException.class, () -> unitToTest.register(null));
+
+        verify(commonValidator).validate(null);
+
+        verifyNoInteractions(customerRepository);
+        verifyNoInteractions(accountMapper);
+        verifyNoInteractions(accountRepository);
+        verifyNoInteractions(customerMapper);
+        verifyNoInteractions(customerRegisterRequestValidator);
+    }
+
+
+    @Test
+    void logon_invalidCredentials() {
+
+        when(customerRepository.existsByUsernameAndPassword(any(), any())).thenReturn(false);
+
+        val response = unitToTest.logon(new CustomerLogonRequest("", ""));
+
+        assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
+
+        verify(commonValidator).validate(any());
+        verify(customerRepository).existsByUsernameAndPassword(any(), any());
+
+        verifyNoMoreInteractions(commonValidator);
+        verifyNoMoreInteractions(customerRepository);
+        verifyNoInteractions(accountMapper);
+        verifyNoInteractions(accountRepository);
+        verifyNoInteractions(customerMapper);
+        verifyNoInteractions(customerRegisterRequestValidator);
+    }
+
+    @Test
+    void logon_valid() {
+
+        when(customerRepository.existsByUsernameAndPassword(any(), any())).thenReturn(true);
+
+        val response = unitToTest.logon(new CustomerLogonRequest("", ""));
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        verify(customerRepository).existsByUsernameAndPassword(any(), any());
+
+        verifyNoMoreInteractions(customerRepository);
+        verifyNoInteractions(accountMapper);
+        verifyNoInteractions(accountRepository);
+        verifyNoInteractions(customerMapper);
+        verifyNoInteractions(customerRegisterRequestValidator);
     }
 }
