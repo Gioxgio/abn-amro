@@ -23,6 +23,13 @@ The following shortcuts were taken during the development of this project:
   limit shouldn't be in the code<br>
   **What I think should be the right solution?** The age should be in the configuration file (to avoid to have to
   specify the same number for every country, the default value could be 18)
+- Currency is hardcoded<br>
+  **Why do I think this is wrong?** Even almost every country in Europe adopted Euro as currency it shouldn't be
+  hardcoded<br>
+  **What I think should be the right solution?** The currency should be in the configuration file
+- Information to generate IBANs are hardcoded<br>
+  **Why do I think this is wrong?** It may slow down expansion processes<br>
+  **What I think should be the right solution?** The information should be in the configuration file
 
 ## Pre requisites
 
