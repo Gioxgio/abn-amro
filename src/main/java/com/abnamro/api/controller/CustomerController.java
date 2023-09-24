@@ -2,7 +2,7 @@ package com.abnamro.api.controller;
 
 import com.abnamro.api.request.CustomerLogonRequest;
 import com.abnamro.api.request.CustomerRegisterRequest;
-import com.abnamro.data.entity.Customer;
+import com.abnamro.api.response.CustomerRegisterResponse;
 import com.abnamro.data.repository.AccountRepository;
 import com.abnamro.data.repository.CustomerRepository;
 import com.abnamro.mapper.AccountMapper;
@@ -38,8 +38,8 @@ public class CustomerController {
     @Operation(summary = "Allow to register a new customer")
     @PostMapping(value = "/register")
     @Transactional
-    public ResponseEntity<Customer> register(@Parameter(description = "Customer data", required = true)
-                                             @RequestBody final CustomerRegisterRequest request) {
+    public ResponseEntity<CustomerRegisterResponse> register(@Parameter(description = "Customer data", required = true)
+                                                             @RequestBody final CustomerRegisterRequest request) {
 
         customerRegisterRequestValidator.validate(request);
 
@@ -49,7 +49,7 @@ public class CustomerController {
         var accountEntity = accountMapper.fromScratch(customerEntity.getId(), request.getAccountType());
         accountRepository.saveAndFlush(accountEntity);
 
-        return ResponseEntity.ok().body(customerEntity);
+        return ResponseEntity.ok().body(new CustomerRegisterResponse(accountEntity, customerEntity));
     }
 
     @Operation(summary = "Verify customer credentials")
