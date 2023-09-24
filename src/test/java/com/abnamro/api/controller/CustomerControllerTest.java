@@ -82,7 +82,6 @@ class CustomerControllerTest extends UnitTestBase {
         verifyNoMoreInteractions(accountRepository);
     }
 
-
     @Test
     void logon_invalidRequest() {
 
@@ -98,7 +97,6 @@ class CustomerControllerTest extends UnitTestBase {
         verifyNoInteractions(customerMapper);
         verifyNoInteractions(customerRegisterRequestValidator);
     }
-
 
     @Test
     void logon_invalidCredentials() {
