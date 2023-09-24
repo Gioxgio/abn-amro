@@ -22,10 +22,10 @@ import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-class CustomerRegisterRequestValidatorTest extends UnitTestBase {
+class CustomerRequestValidatorTest extends UnitTestBase {
 
     @InjectMocks
-    private CustomerRegisterRequestValidator unitToTest;
+    private CustomerRequestValidator unitToTest;
 
     @Mock
     private BusinessConfig businessConfig;

@@ -1,14 +1,14 @@
 package com.abnamro.api.controller;
 
 import com.abnamro.api.request.CustomerLogonRequest;
+import com.abnamro.api.request.CustomerRegisterRequest;
 import com.abnamro.data.entity.Customer;
 import com.abnamro.data.repository.AccountRepository;
 import com.abnamro.data.repository.CustomerRepository;
 import com.abnamro.mapper.AccountMapper;
 import com.abnamro.mapper.CustomerMapper;
 import com.abnamro.utils.UnitTestBase;
-import com.abnamro.utils.validator.CommonValidator;
-import com.abnamro.utils.validator.CustomerRegisterRequestValidator;
+import com.abnamro.utils.validator.CustomerRequestValidator;
 import com.abnamro.utils.validator.ValidationException;
 import lombok.val;
 import org.junit.jupiter.api.Test;
@@ -19,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
@@ -35,24 +36,22 @@ class CustomerControllerTest extends UnitTestBase {
     @Mock
     private AccountRepository accountRepository;
     @Mock
-    private CommonValidator commonValidator;
-    @Mock
     private CustomerMapper customerMapper;
     @Mock
-    private CustomerRegisterRequestValidator customerRegisterRequestValidator;
+    private CustomerRequestValidator customerRequestValidator;
     @Mock
     private CustomerRepository customerRepository;
 
     @Test
     void register_invalid() {
 
-        doThrow(new ValidationException("")).when(customerRegisterRequestValidator).validate(any());
+        doThrow(new ValidationException("")).when(customerRequestValidator).validate(any());
 
         assertThrows(ValidationException.class, () -> unitToTest.register(null));
 
-        verify(customerRegisterRequestValidator).validate(null);
+        verify(customerRequestValidator).validate(null);
 
-        verifyNoMoreInteractions(customerRegisterRequestValidator);
+        verifyNoMoreInteractions(customerRequestValidator);
         verifyNoInteractions(customerMapper);
         verifyNoInteractions(customerRepository);
         verifyNoInteractions(accountMapper);
@@ -62,20 +61,22 @@ class CustomerControllerTest extends UnitTestBase {
     @Test
     void register_valid() {
 
-        val response = unitToTest.register(null);
+        val request = new CustomerRegisterRequest(null, null, null, null, null, null, "");
 
-        when(customerMapper.fromRegistrateRequest(any())).thenReturn(null);
-        when(customerRepository.saveAndFlush(any())).thenReturn(new Customer());
+        val customerEntity = Customer.builder().id(1).build();
+        when(customerRepository.saveAndFlush(any())).thenReturn(customerEntity);
+
+        val response = unitToTest.register(request);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
-        verify(customerRegisterRequestValidator).validate(null);
+        verify(customerRequestValidator).validate(request);
         verify(customerMapper).fromRegistrateRequest(any());
         verify(customerRepository).saveAndFlush(any());
-        verify(accountMapper).fromScratch(any(), any());
+        verify(accountMapper).fromScratch(anyInt(), any());
         verify(accountRepository).saveAndFlush(any());
 
-        verifyNoMoreInteractions(customerRegisterRequestValidator);
+        verifyNoMoreInteractions(customerRequestValidator);
         verifyNoMoreInteractions(customerMapper);
         verifyNoMoreInteractions(customerRepository);
         verifyNoMoreInteractions(accountMapper);
@@ -85,54 +86,60 @@ class CustomerControllerTest extends UnitTestBase {
     @Test
     void logon_invalidRequest() {
 
-        doThrow(new ValidationException("")).when(commonValidator).validate(any());
+        val request = new CustomerLogonRequest("", "");
 
-        assertThrows(ValidationException.class, () -> unitToTest.register(null));
+        doThrow(new ValidationException("")).when(customerRequestValidator).validate(request);
 
-        verify(commonValidator).validate(null);
+        assertThrows(ValidationException.class, () -> unitToTest.logon(request));
 
+        verify(customerRequestValidator).validate(request);
+
+        verifyNoMoreInteractions(customerRequestValidator);
         verifyNoInteractions(customerRepository);
         verifyNoInteractions(accountMapper);
         verifyNoInteractions(accountRepository);
         verifyNoInteractions(customerMapper);
-        verifyNoInteractions(customerRegisterRequestValidator);
     }
 
     @Test
     void logon_invalidCredentials() {
 
+        val request = new CustomerLogonRequest("", "");
+
         when(customerRepository.existsByUsernameAndPassword(any(), any())).thenReturn(false);
 
-        val response = unitToTest.logon(new CustomerLogonRequest("", ""));
+        val response = unitToTest.logon(request);
 
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
 
-        verify(commonValidator).validate(any());
+        verify(customerRequestValidator).validate(request);
         verify(customerRepository).existsByUsernameAndPassword(any(), any());
 
-        verifyNoMoreInteractions(commonValidator);
+        verifyNoMoreInteractions(customerRequestValidator);
         verifyNoMoreInteractions(customerRepository);
         verifyNoInteractions(accountMapper);
         verifyNoInteractions(accountRepository);
         verifyNoInteractions(customerMapper);
-        verifyNoInteractions(customerRegisterRequestValidator);
     }
 
     @Test
     void logon_valid() {
 
+        val request = new CustomerLogonRequest("", "");
+
         when(customerRepository.existsByUsernameAndPassword(any(), any())).thenReturn(true);
 
-        val response = unitToTest.logon(new CustomerLogonRequest("", ""));
+        val response = unitToTest.logon(request);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
+        verify(customerRequestValidator).validate(request);
         verify(customerRepository).existsByUsernameAndPassword(any(), any());
 
+        verifyNoMoreInteractions(customerRequestValidator);
         verifyNoMoreInteractions(customerRepository);
         verifyNoInteractions(accountMapper);
         verifyNoInteractions(accountRepository);
         verifyNoInteractions(customerMapper);
-        verifyNoInteractions(customerRegisterRequestValidator);
     }
 }

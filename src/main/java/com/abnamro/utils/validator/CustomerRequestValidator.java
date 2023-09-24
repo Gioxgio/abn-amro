@@ -12,12 +12,12 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import java.time.LocalDate;
 
 @Component
-public class CustomerRegisterRequestValidator extends CommonValidator {
+public class CustomerRequestValidator extends CommonValidator {
 
     private final BusinessConfig businessConfig;
     private final CustomerRepository customerRepository;
 
-    public CustomerRegisterRequestValidator(
+    public CustomerRequestValidator(
             @Autowired final BusinessConfig businessConfig,
             @Autowired final CustomerRepository customerRepository,
             @Autowired final LocalValidatorFactoryBean localValidatorFactoryBean,

@@ -7,8 +7,7 @@ import com.abnamro.data.repository.AccountRepository;
 import com.abnamro.data.repository.CustomerRepository;
 import com.abnamro.mapper.AccountMapper;
 import com.abnamro.mapper.CustomerMapper;
-import com.abnamro.utils.validator.CommonValidator;
-import com.abnamro.utils.validator.CustomerRegisterRequestValidator;
+import com.abnamro.utils.validator.CustomerRequestValidator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -30,9 +29,8 @@ public class CustomerController {
 
     private final AccountMapper accountMapper;
     private final AccountRepository accountRepository;
-    private final CommonValidator commonValidator;
     private final CustomerMapper customerMapper;
-    private final CustomerRegisterRequestValidator customerRegisterRequestValidator;
+    private final CustomerRequestValidator customerRequestValidator;
     private final CustomerRepository customerRepository;
 
     @Operation(summary = "Allow to register a new customer")
@@ -41,7 +39,7 @@ public class CustomerController {
     public ResponseEntity<CustomerRegisterResponse> register(@Parameter(description = "Customer data", required = true)
                                                              @RequestBody final CustomerRegisterRequest request) {
 
-        customerRegisterRequestValidator.validate(request);
+        customerRequestValidator.validate(request);
 
         var customerEntity = customerMapper.fromRegistrateRequest(request);
         customerEntity = customerRepository.saveAndFlush(customerEntity);
@@ -58,7 +56,7 @@ public class CustomerController {
     public ResponseEntity<String> logon(@Parameter(description = "Customer credentials", required = true)
                                         @RequestBody final CustomerLogonRequest request) {
 
-        commonValidator.validate(request);
+        customerRequestValidator.validate(request);
 
         val result = customerRepository.existsByUsernameAndPassword(request.getUsername(), request.getPassword());
 

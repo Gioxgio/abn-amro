@@ -29,7 +29,7 @@ class MessageHelperTest extends UnitTestBase {
 
         when(messageSource.getMessage(key, args, Locale.ENGLISH)).thenReturn(message);
 
-        val response = unitToTest.getMessage(key, args);
+        val response = unitToTest.getMessage(key, (Object[]) args);
 
         verify(messageSource).getMessage(key, args, Locale.ENGLISH);
 
