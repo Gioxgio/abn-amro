@@ -16,7 +16,7 @@ class CustomerMapperTest extends UnitTestBase {
     @Test
     void fromRegisterRequest_success() {
 
-        val request = new CustomerRegisterRequest("name", "address", LocalDate.now(), "idDocument", "username", "country");
+        val request = new CustomerRegisterRequest("name", "address", LocalDate.now(), "idDocument", "username", "country", null);
 
         val entity = unitToTest.fromRegistrateRequest(request);
 
