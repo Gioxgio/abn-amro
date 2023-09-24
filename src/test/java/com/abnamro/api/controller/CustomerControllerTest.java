@@ -1,7 +1,8 @@
 package com.abnamro.api.controller;
 
-import com.abnamro.data.entity.Customer;
+import com.abnamro.data.repository.AccountRepository;
 import com.abnamro.data.repository.CustomerRepository;
+import com.abnamro.mapper.AccountMapper;
 import com.abnamro.mapper.CustomerMapper;
 import com.abnamro.utils.UnitTestBase;
 import com.abnamro.utils.validator.CustomerRegisterRequestValidator;
@@ -27,6 +28,10 @@ class CustomerControllerTest extends UnitTestBase {
     private CustomerController unitToTest;
 
     @Mock
+    private AccountMapper accountMapper;
+    @Mock
+    private AccountRepository accountRepository;
+    @Mock
     private CustomerMapper customerMapper;
     @Mock
     private CustomerRegisterRequestValidator customerRegisterRequestValidator;
@@ -45,6 +50,8 @@ class CustomerControllerTest extends UnitTestBase {
         verifyNoMoreInteractions(customerRegisterRequestValidator);
         verifyNoInteractions(customerMapper);
         verifyNoInteractions(customerRepository);
+        verifyNoInteractions(accountMapper);
+        verifyNoInteractions(accountRepository);
     }
 
     @Test
@@ -59,9 +66,13 @@ class CustomerControllerTest extends UnitTestBase {
         verify(customerRegisterRequestValidator).validate(null);
         verify(customerMapper).fromRegistrateRequest(any());
         verify(customerRepository).saveAndFlush(any());
+        verify(accountMapper).fromScratch(any(), any());
+        verify(accountRepository).saveAndFlush(any());
 
         verifyNoMoreInteractions(customerRegisterRequestValidator);
         verifyNoMoreInteractions(customerMapper);
         verifyNoMoreInteractions(customerRepository);
+        verifyNoMoreInteractions(accountMapper);
+        verifyNoMoreInteractions(accountRepository);
     }
 }
