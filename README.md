@@ -56,3 +56,6 @@ The swagger documentation can be read at http://127.0.0.1:8080/swagger-ui/index.
 | postgresql      | DB connection driver                      | https://postgresql.org/                    |
 | spring data JPA | DB interaction                            | https://spring.io/projects/spring-data-jpa |
 | springdoc       | APIs documentation                        | https://springdoc.org/                     |
+
+## Test coverage
+[Test coverage result](https://github.com/Gioxgio/abn-amro/blob/master/Jacoco_test_coverage_report.jpg?raw=true)
