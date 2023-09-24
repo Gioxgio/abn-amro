@@ -55,7 +55,7 @@ class CustomerRegisterRequestValidatorTest extends UnitTestBase {
     void validate_countryNotAllowed_failure() {
 
         val country = "NL";
-        val customer = new CustomerRegisterRequest(null, null, null, null, null, country);
+        val customer = new CustomerRegisterRequest(null, null, null, null, null, country, null);
 
         when(businessConfig.getAllowedCountries()).thenReturn(Set.of("IT"));
 
@@ -75,7 +75,7 @@ class CustomerRegisterRequestValidatorTest extends UnitTestBase {
     void validate_underage_failure() {
 
         val country = "NL";
-        val customer = new CustomerRegisterRequest(null, null, LocalDate.now(), null, null, country);
+        val customer = new CustomerRegisterRequest(null, null, LocalDate.now(), null, null, country, null);
 
         when(businessConfig.getAllowedCountries()).thenReturn(Set.of(country));
 
@@ -98,7 +98,7 @@ class CustomerRegisterRequestValidatorTest extends UnitTestBase {
         val dob = LocalDate.now().minusYears(19);
         val username = "username";
 
-        val customer = new CustomerRegisterRequest(null, null, dob, null, username, country);
+        val customer = new CustomerRegisterRequest(null, null, dob, null, username, country, null);
 
         when(businessConfig.getAllowedCountries()).thenReturn(Set.of(country));
         when(customerRepository.existsByUsername(any())).thenReturn(true);
@@ -123,7 +123,7 @@ class CustomerRegisterRequestValidatorTest extends UnitTestBase {
         val dob = LocalDate.now().minusYears(19);
         val username = "username";
 
-        val customer = new CustomerRegisterRequest(null, null, dob, null, username, country);
+        val customer = new CustomerRegisterRequest(null, null, dob, null, username, country, null);
 
         when(businessConfig.getAllowedCountries()).thenReturn(Set.of(country));
         when(customerRepository.existsByUsername(any())).thenReturn(false);

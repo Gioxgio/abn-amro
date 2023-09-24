@@ -30,4 +30,8 @@ public class CustomerRegisterRequest {
     @Schema(description = "Customer country of residence")
     @NotEmpty
     String country;
+
+    @Schema(description = "Customer account type")
+    @NotEmpty
+    String accountType;
 }
