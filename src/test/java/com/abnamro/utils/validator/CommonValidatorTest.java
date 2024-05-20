@@ -1,7 +1,7 @@
-package com.abnamro.utils.validator;
+package com.bank.utils.validator;
 
-import com.abnamro.utils.MessageHelper;
-import com.abnamro.utils.UnitTestBase;
+import com.bank.utils.MessageHelper;
+import com.bank.utils.UnitTestBase;
 import jakarta.validation.ConstraintViolation;
 import lombok.val;
 import org.hibernate.validator.internal.engine.ConstraintViolationImpl;

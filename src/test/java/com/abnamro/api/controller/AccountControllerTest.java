@@ -1,8 +1,8 @@
-package com.abnamro.api.controller;
+package com.bank.api.controller;
 
-import com.abnamro.data.entity.Account;
-import com.abnamro.data.repository.AccountRepository;
-import com.abnamro.utils.UnitTestBase;
+import com.bank.data.entity.Account;
+import com.bank.data.repository.AccountRepository;
+import com.bank.utils.UnitTestBase;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

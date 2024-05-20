@@ -1,8 +1,8 @@
-package com.abnamro.api;
+package com.bank.api;
 
-import com.abnamro.api.response.ErrorResponse;
-import com.abnamro.utils.UnitTestBase;
-import com.abnamro.utils.validator.ValidationException;
+import com.bank.api.response.ErrorResponse;
+import com.bank.utils.UnitTestBase;
+import com.bank.utils.validator.ValidationException;
 import lombok.val;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;

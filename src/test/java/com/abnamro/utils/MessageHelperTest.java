@@ -1,4 +1,4 @@
-package com.abnamro.utils;
+package com.bank.utils;
 
 import lombok.val;
 import org.junit.jupiter.api.Test;

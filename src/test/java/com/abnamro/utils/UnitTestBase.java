@@ -1,4 +1,4 @@
-package com.abnamro.utils;
+package com.bank.utils;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

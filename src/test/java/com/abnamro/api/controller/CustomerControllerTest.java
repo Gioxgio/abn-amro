@@ -1,15 +1,15 @@
-package com.abnamro.api.controller;
+package com.bank.api.controller;
 
-import com.abnamro.api.request.CustomerLogonRequest;
-import com.abnamro.api.request.CustomerRegisterRequest;
-import com.abnamro.data.entity.Customer;
-import com.abnamro.data.repository.AccountRepository;
-import com.abnamro.data.repository.CustomerRepository;
-import com.abnamro.mapper.AccountMapper;
-import com.abnamro.mapper.CustomerMapper;
-import com.abnamro.utils.UnitTestBase;
-import com.abnamro.utils.validator.CustomerRequestValidator;
-import com.abnamro.utils.validator.ValidationException;
+import com.bank.api.request.CustomerLogonRequest;
+import com.bank.api.request.CustomerRegisterRequest;
+import com.bank.data.entity.Customer;
+import com.bank.data.repository.AccountRepository;
+import com.bank.data.repository.CustomerRepository;
+import com.bank.mapper.AccountMapper;
+import com.bank.mapper.CustomerMapper;
+import com.bank.utils.UnitTestBase;
+import com.bank.utils.validator.CustomerRequestValidator;
+import com.bank.utils.validator.ValidationException;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

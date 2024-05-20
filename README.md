@@ -58,4 +58,4 @@ The swagger documentation can be read at http://127.0.0.1:8080/swagger-ui/index.
 | springdoc       | APIs documentation                        | https://springdoc.org/                     |
 
 ## Test coverage
-[Test coverage result](https://github.com/Gioxgio/abn-amro/blob/master/Jacoco_test_coverage_report.jpg?raw=true)
+[Test coverage result](https://github.com/Gioxgio/bank/blob/master/Jacoco_test_coverage_report.jpg?raw=true)

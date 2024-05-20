@@ -1,7 +1,7 @@
-package com.abnamro.mapper;
+package com.bank.mapper;
 
-import com.abnamro.api.request.CustomerRegisterRequest;
-import com.abnamro.utils.UnitTestBase;
+import com.bank.api.request.CustomerRegisterRequest;
+import com.bank.utils.UnitTestBase;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 

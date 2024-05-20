@@ -1,10 +1,10 @@
-package com.abnamro.utils.validator;
+package com.bank.utils.validator;
 
-import com.abnamro.api.request.CustomerRegisterRequest;
-import com.abnamro.config.BusinessConfig;
-import com.abnamro.data.repository.CustomerRepository;
-import com.abnamro.utils.MessageHelper;
-import com.abnamro.utils.UnitTestBase;
+import com.bank.api.request.CustomerRegisterRequest;
+import com.bank.config.BusinessConfig;
+import com.bank.data.repository.CustomerRepository;
+import com.bank.utils.MessageHelper;
+import com.bank.utils.UnitTestBase;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

@@ -1,8 +1,8 @@
 spring:
   datasource:
-    username: abn-amro
+    username: bank
     password: pass
-    url: 'jdbc:postgresql://localhost:5432/abnamro'
+    url: 'jdbc:postgresql://localhost:5432/bank'
 
 business-config:
   allowed-countries: [ BE, DE, NL ]
